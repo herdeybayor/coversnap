@@ -1,5 +1,5 @@
-import { useState, useRef, useCallback, useEffect } from 'react';
-import { renderCover, exportCoverAsPNG, TEMPLATES, ACCENT_COLORS, BACKGROUND_PALETTES } from '@/lib/renderer';
+import { useState, useRef, useCallback, useEffect, useMemo } from 'react';
+import { renderCover, exportCoverAsPNG, TEMPLATES, ACCENT_COLORS, BACKGROUND_PALETTES, DIMENSIONS } from '@/lib/renderer';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -9,8 +9,9 @@ import { Card } from '@/components/ui/card';
 const templateKeys = Object.keys(TEMPLATES);
 const accentKeys = Object.keys(ACCENT_COLORS);
 const bgKeys = Object.keys(BACKGROUND_PALETTES);
+const dimensionKeys = Object.keys(DIMENSIONS);
 
-const PREVIEW_SIZE = 540;
+const MAX_PREVIEW = 540;
 
 export default function Editor() {
   const canvasRef = useRef(null);
@@ -18,17 +19,38 @@ export default function Editor() {
 
   const [config, setConfig] = useState({
     template: 'mobile-cropped',
+    dimension: '1:1',
     title: 'Dashboard',
     subtitle: 'Welcome back',
     url: 'myproject.com',
     accent: TEMPLATES['mobile-cropped'].defaults.accent,
     background: TEMPLATES['mobile-cropped'].defaults.background,
     screenshot: null,
-    size: PREVIEW_SIZE,
+    size: MAX_PREVIEW,
   });
 
   const [screenshotName, setScreenshotName] = useState('');
   const [exporting, setExporting] = useState(false);
+
+  // Compute the current dimension's export resolution
+  const currentDim = DIMENSIONS[config.dimension] || DIMENSIONS['1:1'];
+  const exportW = currentDim.width * 2;
+  const exportH = currentDim.height * 2;
+
+  // Compute preview dimensions that fit inside MAX_PREVIEW bounding box
+  const previewSize = useMemo(() => {
+    const dim = DIMENSIONS[config.dimension] || DIMENSIONS['1:1'];
+    const ratio = dim.width / dim.height;
+    let pw, ph;
+    if (ratio >= 1) {
+      pw = MAX_PREVIEW;
+      ph = MAX_PREVIEW / ratio;
+    } else {
+      ph = MAX_PREVIEW;
+      pw = MAX_PREVIEW * ratio;
+    }
+    return { width: Math.round(pw), height: Math.round(ph) };
+  }, [config.dimension]);
 
   // Re-render canvas when config changes
   useEffect(() => {
@@ -88,11 +110,11 @@ export default function Editor() {
   const handleExport = useCallback(async () => {
     setExporting(true);
     try {
-      const blob = await exportCoverAsPNG(config, 1080);
+      const blob = await exportCoverAsPNG(config);
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `cover-${config.template}-${Date.now()}.png`;
+      a.download = `cover-${config.template}-${config.dimension.replace(':', 'x')}-${Date.now()}.png`;
       a.click();
       URL.revokeObjectURL(url);
     } catch (err) {
@@ -156,6 +178,35 @@ export default function Editor() {
               </div>
               <p className="text-[11px] text-white/30 mt-2">
                 {TEMPLATES[config.template].label} — {TEMPLATES[config.template].category === 'mobile' ? 'Mobile' : 'Website'}
+              </p>
+            </div>
+
+            <Separator className="bg-white/[0.06]" />
+
+            {/* Dimension Selection */}
+            <div>
+              <Label className="text-xs font-medium text-white/50 uppercase tracking-wider mb-3 block">Dimensions</Label>
+              <div className="flex flex-wrap gap-1.5">
+                {dimensionKeys.map(key => {
+                  const dim = DIMENSIONS[key];
+                  const isActive = config.dimension === key;
+                  return (
+                    <button
+                      key={key}
+                      onClick={() => updateConfig('dimension', key)}
+                      className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-all duration-200 ${
+                        isActive
+                          ? 'border-indigo-500 bg-indigo-500/15 text-indigo-300 ring-1 ring-indigo-500/30'
+                          : 'border-white/[0.08] text-white/40 hover:border-white/20 hover:text-white/60 hover:bg-white/[0.04]'
+                      }`}
+                    >
+                      {key}
+                    </button>
+                  );
+                })}
+              </div>
+              <p className="text-[11px] text-white/30 mt-2">
+                {currentDim.label} — {currentDim.width} × {currentDim.height}px
               </p>
             </div>
 
@@ -302,7 +353,7 @@ export default function Editor() {
                   </span>
                 )}
               </Button>
-              <p className="text-[10px] text-white/25 text-center">2160 × 2160px retina-ready</p>
+              <p className="text-[10px] text-white/25 text-center">{exportW} × {exportH}px retina-ready</p>
             </div>
 
             <Separator className="bg-white/[0.06]" />
@@ -333,7 +384,7 @@ export default function Editor() {
               <canvas
                 ref={canvasRef}
                 className="rounded-xl block"
-                style={{ width: PREVIEW_SIZE, height: PREVIEW_SIZE }}
+                style={{ width: previewSize.width, height: previewSize.height }}
               />
             </Card>
             <p className="text-center text-[11px] text-white/20 mt-4">Live preview — changes update in real-time</p>
@@ -359,7 +410,7 @@ function TemplateThumb({ templateKey, isActive }) {
     canvas.style.height = size + 'px';
     const ctx = canvas.getContext('2d');
     ctx.scale(2, 2);
-    tmpl.fn(ctx, size, { ...tmpl.defaults, title: '', subtitle: '', url: '' });
+    tmpl.fn(ctx, size, size, { ...tmpl.defaults, title: '', subtitle: '', url: '' });
   }, [templateKey]);
 
   return (
