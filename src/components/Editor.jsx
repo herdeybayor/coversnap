@@ -117,7 +117,7 @@ export default function Editor() {
           </div>
         </div>
         <a
-          href="https://github.com"
+          href="https://github.com/herdeybayor/coversnap"
           target="_blank"
           rel="noopener noreferrer"
           className="text-xs text-white/40 hover:text-white/70 transition-colors flex items-center gap-1.5"
@@ -303,6 +303,23 @@ export default function Editor() {
                 )}
               </Button>
               <p className="text-[10px] text-white/25 text-center">2160 × 2160px retina-ready</p>
+            </div>
+
+            <Separator className="bg-white/[0.06]" />
+
+            {/* Attribution */}
+            <div className="text-center py-2">
+              <p className="text-[11px] text-white/30">
+                Built with <span className="text-red-400">❤️</span> by{' '}
+                <a
+                  href="https://dub.sh/herdeybayor"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-indigo-400 hover:text-indigo-300 transition-colors font-medium"
+                >
+                  herdeybayor
+                </a>
+              </p>
             </div>
           </div>
         </aside>

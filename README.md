@@ -1,78 +1,168 @@
-# CoverSnap
+# CoverSnap ✦
 
-**Generate beautiful project cover images** for portfolios, READMEs, social media, and case studies — right in your browser.
+> Generate beautiful project cover images for portfolios, READMEs, social media, and case studies — right in your browser.
 
-![CoverSnap Preview](https://img.shields.io/badge/CoverSnap-v1.0.0-6366f1?style=for-the-badge)
+[![MIT License](https://img.shields.io/badge/License-MIT-6366f1?style=flat-square)](LICENSE)
+[![Made with React](https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react&logoColor=white)](https://react.dev)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4-38BDF8?style=flat-square&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
+
+---
 
 ## ✨ Features
 
-- **5 Templates** — Full Phone, Cropped Phone, Flat Browser, 3D Perspective, Cropped Browser
-- **Live Preview** — Changes render in real-time on a high-fidelity canvas
-- **Custom Colors** — 10 accent colors + 8 background palettes
-- **Screenshot Upload** — Drop your own app screenshot into the device frame
-- **Retina Export** — Download as 2160×2160px PNG (2x resolution)
-- **No Backend** — Everything runs client-side, no data ever leaves your browser
-- **Dark UI** — Sleek dark theme designed for creative workflows
+- 🎨 **5 Template Variants** — Full Phone, Cropped Phone, Flat Browser, 3D Perspective, Cropped Browser
+- ⚡ **Live Preview** — Every change renders in real-time on a high-fidelity canvas
+- 🎯 **10 Accent Colors** — Indigo, Purple, Green, Teal, Blue, Rose, Amber, Red, Pink, Emerald
+- 🖼 **8 Background Palettes** — Deep, rich gradient backgrounds with dot-grid textures
+- 📷 **Screenshot Upload** — Drag & drop your own app screenshot into the device frame
+- 📥 **Retina Export** — Download as 2160×2160px PNG at 2x resolution
+- 🔒 **No Backend** — 100% client-side, your data never leaves your browser
+- 🌙 **Dark UI** — Sleek dark theme designed for creative workflows
 
 ## 🚀 Getting Started
 
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) (v18 or higher)
+- npm (comes with Node.js)
+
+### Installation
+
 ```bash
-# Clone the repo
-git clone https://github.com/your-username/coversnap.git
+# Clone the repository
+git clone https://github.com/herdeybayor/coversnap.git
+
+# Navigate to the project
 cd coversnap
 
 # Install dependencies
 npm install
 
-# Start dev server
+# Start the development server
 npm run dev
 ```
 
-Open [http://localhost:5173](http://localhost:5173) in your browser.
+Open [http://localhost:5173](http://localhost:5173) in your browser and start creating!
+
+## 📖 Usage
+
+### 1. Choose a Template
+
+Select from 5 carefully crafted templates — 2 for mobile apps, 3 for websites. Each template has its own default color palette.
+
+### 2. Customize Content
+
+- **Title** — Your app name or project name
+- **Subtitle** — A tagline or welcome message
+- **URL** — Displayed in the browser chrome (website templates only)
+
+### 3. Pick Your Colors
+
+Choose from 10 accent colors and 8 background palettes. The accent color affects buttons, charts, gradients, and highlights within the preview.
+
+### 4. Upload a Screenshot (Optional)
+
+Drag & drop or click to upload your own app screenshot. It will be rendered inside the device frame, replacing the placeholder UI.
+
+### 5. Export
+
+Click **Export PNG (2x)** to download a 2160×2160px retina-ready image. Perfect for:
+
+- GitHub README headers
+- Portfolio project cards
+- Social media (Twitter/X, LinkedIn, Dribbble)
+- Case study hero images
+- Behance project covers
 
 ## 📦 Build for Production
 
 ```bash
+# Create optimized production build
 npm run build
+
+# Preview the production build locally
 npm run preview
 ```
 
+The output will be in the `dist/` directory, ready to deploy to any static hosting service (Vercel, Netlify, GitHub Pages, etc.).
+
 ## 🎨 Templates
 
-| Template | Type | Description |
-|----------|------|-------------|
-| Full Phone | Mobile | Entire device visible — great for showcasing device design |
-| Cropped Phone ★ | Mobile | Top half visible — screen content is 2× larger and readable |
-| Flat Browser | Website | Standard centered browser — clean and minimal |
-| 3D Perspective ★ | Website | Angled browser with depth — eye-catching and modern |
-| Cropped Browser | Website | Top portion of browser — page content fills the frame |
+| Template | Type | Best For |
+|----------|------|----------|
+| **Full Phone** | 📱 Mobile | Showcasing full device design |
+| **Cropped Phone** ★ | 📱 Mobile | Making screen content large & readable |
+| **Flat Browser** | 🌐 Website | Clean, minimal presentation |
+| **3D Perspective** ★ | 🌐 Website | Eye-catching, modern portfolio pieces |
+| **Cropped Browser** | 🌐 Website | Emphasizing page content |
+
+> ★ = Recommended templates for maximum visual impact
 
 ## 🛠 Tech Stack
 
-- [Vite](https://vite.dev) — Fast build tool
-- [React](https://react.dev) — UI library
-- [Tailwind CSS v4](https://tailwindcss.com) — Utility-first CSS
-- [shadcn/ui](https://ui.shadcn.com) — Beautiful UI components
-- [Canvas API](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API) — Rendering engine
+| Technology | Purpose |
+|-----------|---------|
+| [Vite](https://vite.dev) | Lightning-fast build tool & dev server |
+| [React 19](https://react.dev) | UI component library |
+| [Tailwind CSS v4](https://tailwindcss.com) | Utility-first CSS framework |
+| [shadcn/ui](https://ui.shadcn.com) | Beautiful, accessible UI components |
+| [Canvas API](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API) | High-performance rendering engine |
+
+## 📁 Project Structure
+
+```
+coversnap/
+├── index.html                   # App shell
+├── package.json                 # Dependencies & scripts
+├── vite.config.js               # Vite configuration
+├── src/
+│   ├── main.jsx                 # React entry point
+│   ├── App.jsx                  # Root component
+│   ├── index.css                # Tailwind + shadcn theme
+│   ├── components/
+│   │   ├── Editor.jsx           # Main editor UI
+│   │   └── ui/                  # shadcn/ui components
+│   └── lib/
+│       ├── renderer.js          # Canvas rendering engine
+│       └── utils.js             # Utility functions
+├── README.md
+├── CONTRIBUTING.md
+├── CODE_OF_CONDUCT.md
+└── LICENSE
+```
 
 ## 🤝 Contributing
 
-Contributions are welcome! Feel free to:
+We love contributions! Whether it's fixing a bug, adding a feature, or improving documentation — every contribution matters.
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+Please read our [Contributing Guide](CONTRIBUTING.md) to get started.
+
+### Quick Start for Contributors
+
+```bash
+# Fork & clone
+git clone https://github.com/YOUR_USERNAME/coversnap.git
+cd coversnap
+npm install
+npm run dev
+```
 
 ### Ideas for Contribution
 
-- Add new templates (e.g., tablet, desktop, terminal)
-- Add more color themes
-- SVG export support
-- API/CLI for automation
-- i18n support
+| Category | Ideas |
+|----------|-------|
+| 🎨 Templates | Tablet, desktop, terminal, smartwatch |
+| 🎯 Features | SVG export, clipboard copy, share links |
+| 🔧 Developer | CLI tool, npm package, API endpoints |
+| 🌍 i18n | Multi-language support |
+| 📚 Docs | Tutorials, video walkthroughs, examples |
 
 ## 📄 License
 
-[MIT](LICENSE) — free for personal and commercial use.
+This project is licensed under the [MIT License](LICENSE) — free for personal and commercial use.
+
+---
+
+<p align="center">
+  Built with ❤️ by <a href="https://dub.sh/herdeybayor">herdeybayor</a>
+</p>
