@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project Cover Templates v2 — Sherifdeen Portfolio</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0a0a0a; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: #fff; padding: 40px; }
+
+  h1 { font-size: 28px; font-weight: 300; margin-bottom: 8px; letter-spacing: -0.5px; }
+  .subtitle { color: #666; font-size: 14px; margin-bottom: 48px; }
+
+  .section-title {
+    text-align: center; margin: 64px 0 32px;
+    font-size: 14px; font-weight: 500; color: #888;
+    text-transform: uppercase; letter-spacing: 2px;
+  }
+
+  .templates { display: flex; gap: 32px; flex-wrap: wrap; justify-content: center; }
+
+  .template-group { text-align: center; }
+  .template-group h3 { font-size: 13px; font-weight: 500; color: #666; margin-bottom: 12px; }
+  .template-group .hint { font-size: 11px; color: #444; margin-top: 10px; max-width: 360px; }
+
+  .cover {
+    width: 360px; height: 360px;
+    border-radius: 14px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+  }
+  .cover canvas { width: 100%; height: 100%; display: block; }
+  .cover { filter: grayscale(100%); transition: filter 0.5s ease, transform 0.3s ease; }
+  .cover:hover { filter: grayscale(0%); transform: scale(1.02); }
+
+  .label-row { display: flex; gap: 8px; justify-content: center; margin-top: 12px; }
+  .label {
+    font-size: 10px; color: #555; background: #151515; padding: 3px 10px;
+    border-radius: 100px; border: 1px solid #222;
+  }
+  .label.rec { border-color: #10b981; color: #10b981; }
+
+  .divider { width: 1px; background: #1a1a1a; align-self: stretch; }
+
+  .row { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-top: 24px; }
+  .small-cover {
+    width: 200px; height: 200px;
+    border-radius: 10px; overflow: hidden; cursor: pointer;
+    filter: grayscale(100%); transition: filter 0.5s ease, transform 0.3s ease;
+  }
+  .small-cover:hover { filter: grayscale(0%); transform: scale(1.03); }
+  .small-cover canvas { width: 100%; height: 100%; display: block; }
+  .small-label { font-size: 10px; color: #444; margin-top: 6px; text-align: center; }
+
+  .note {
+    max-width: 800px; margin: 64px auto 0; padding: 24px;
+    background: #111; border: 1px solid #222; border-radius: 12px;
+    font-size: 13px; color: #888; line-height: 1.7;
+  }
+  .note strong { color: #ccc; }
+</style>
+</head>
+<body>
+
+<h1>Project Cover Templates v2</h1>
+<p class="subtitle">Hover to preview grayscale → color. Now with 5 variants — 2 mobile, 3 website.</p>
+
+<!-- ========== MOBILE ========== -->
+<p class="section-title">Mobile App Covers</p>
+<div class="templates">
+  <div class="template-group">
+    <h3>A — Full Phone</h3>
+    <div class="cover" id="mobile-full"></div>
+    <div class="label-row">
+      <span class="label">Full device</span>
+    </div>
+    <p class="hint">Entire phone visible — works for showcasing device design</p>
+  </div>
+  <div class="divider"></div>
+  <div class="template-group">
+    <h3>B — Cropped Phone ★</h3>
+    <div class="cover" id="mobile-cropped"></div>
+    <div class="label-row">
+      <span class="label rec">★ Recommended</span>
+    </div>
+    <p class="hint">Top half visible — screen content is 2× larger and readable</p>
+  </div>
+</div>
+
+<!-- ========== WEBSITE ========== -->
+<p class="section-title">Website Covers</p>
+<div class="templates">
+  <div class="template-group">
+    <h3>C — Flat Browser</h3>
+    <div class="cover" id="web-flat"></div>
+    <div class="label-row">
+      <span class="label">Classic flat</span>
+    </div>
+    <p class="hint">Standard centered browser — clean and minimal</p>
+  </div>
+  <div class="divider"></div>
+  <div class="template-group">
+    <h3>D — 3D Perspective ★</h3>
+    <div class="cover" id="web-angle"></div>
+    <div class="label-row">
+      <span class="label rec">★ Recommended</span>
+      <span class="label">Dynamic</span>
+    </div>
+    <p class="hint">Angled browser with 3D depth — eye-catching and modern</p>
+  </div>
+  <div class="divider"></div>
+  <div class="template-group">
+    <h3>E — Cropped Browser</h3>
+    <div class="cover" id="web-cropped"></div>
+    <div class="label-row">
+      <span class="label">Large content</span>
+    </div>
+    <p class="hint">Top portion of browser — page content fills the frame</p>
+  </div>
+</div>
+
+<!-- ========== GRID PREVIEW ========== -->
+<p class="section-title">Portfolio Grid Preview</p>
+<div class="row">
+  <div><div class="small-cover" id="sm1"></div><p class="small-label">Cropped phone</p></div>
+  <div><div class="small-cover" id="sm2"></div><p class="small-label">3D perspective ★</p></div>
+  <div><div class="small-cover" id="sm3"></div><p class="small-label">Cropped browser</p></div>
+  <div><div class="small-cover" id="sm4"></div><p class="small-label">Cropped phone</p></div>
+  <div><div class="small-cover" id="sm5"></div><p class="small-label">3D perspective ★</p></div>
+  <div><div class="small-cover" id="sm6"></div><p class="small-label">Flat browser</p></div>
+</div>
+
+<div class="note">
+  <strong>Figma Recreation Guide:</strong><br><br>
+  <strong>Frame:</strong> 1080×1080px, radial gradient (#1a1a2e → #0a0a0f), dot grid at 3% opacity<br><br>
+  <strong>Cropped Mobile:</strong> Phone at ~55% width, positioned from top, bottom fades into background<br>
+  <strong>3D Perspective Browser:</strong> Browser at ~90% width, apply CSS transform: perspective(1200px) rotateY(-12deg) rotateX(4deg). In Figma: use "Rotate" + skew, or export from a 3D mockup tool like Rotato/Angle<br>
+  <strong>Cropped Browser:</strong> Browser at ~95% width, title bar near top, page extends past bottom with gradient fade<br><br>
+  <strong>Grayscale in Framer:</strong> CSS filter grayscale(100%) → grayscale(0%) on hover, 0.5s ease<br>
+  <strong>Export:</strong> 2x (2160×2160) PNG for retina
+</div>
+
+<script>
+// ===== HELPERS =====
+function roundRect(ctx, x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x + r, y); ctx.lineTo(x + w - r, y);
+  ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+  ctx.lineTo(x + w, y + h - r);
+  ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+  ctx.lineTo(x + r, y + h);
+  ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+  ctx.lineTo(x, y + r);
+  ctx.quadraticCurveTo(x, y, x + r, y);
+  ctx.closePath();
+}
+function roundRectTop(ctx, x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x + r, y); ctx.lineTo(x + w - r, y);
+  ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+  ctx.lineTo(x + w, y + h); ctx.lineTo(x, y + h);
+  ctx.lineTo(x, y + r);
+  ctx.quadraticCurveTo(x, y, x + r, y);
+  ctx.closePath();
+}
+
+function drawBackground(ctx, size, hue) {
+  const colors = {
+    indigo: ['#1a1a2e','#111122','#0a0a0f'],
+    purple: ['#1e1a2e','#151122','#0c0a0f'],
+    green:  ['#1a2e24','#112218','#0a0f0c'],
+    teal:   ['#1a2a2e','#111e22','#0a0d0f'],
+    blue:   ['#1a1e2e','#111525','#0a0c0f']
+  };
+  const c = colors[hue] || colors.indigo;
+  const bg = ctx.createRadialGradient(size/2, size/2, 0, size/2, size/2, size*0.7);
+  bg.addColorStop(0, c[0]); bg.addColorStop(0.5, c[1]); bg.addColorStop(1, c[2]);
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, 0, size, size);
+
+  ctx.fillStyle = 'rgba(255,255,255,0.03)';
+  for (let x = 16; x < size; x += 22) {
+    for (let y = 16; y < size; y += 22) {
+      ctx.beginPath(); ctx.arc(x, y, 0.6, 0, Math.PI*2); ctx.fill();
+    }
+  }
+}
+
+function drawPhoneScreen(ctx, sx, sy, sw, sh, sr, accent) {
+  const gradColors = {
+    indigo: ['#6366f1','#4f46e5','#3730a3'],
+    purple: ['#8b5cf6','#7c3aed','#5b21b6']
+  };
+  const gc = gradColors[accent] || gradColors.indigo;
+  const g = ctx.createLinearGradient(sx, sy, sx, sy+sh);
+  g.addColorStop(0, gc[0]); g.addColorStop(0.4, gc[1]); g.addColorStop(1, gc[2]);
+  ctx.fillStyle = g;
+  roundRect(ctx, sx, sy, sw, sh, sr); ctx.fill();
+
+  // Status bar
+  ctx.fillStyle = 'rgba(255,255,255,0.9)';
+  ctx.font = `bold ${sw*0.055}px -apple-system, sans-serif`;
+  ctx.fillText('9:41', sx+sw*0.06, sy+sw*0.1);
+  ctx.fillStyle = 'rgba(255,255,255,0.6)';
+  const batX = sx+sw-sw*0.08;
+  roundRect(ctx, batX, sy+sw*0.045, sw*0.06, sw*0.025, 2); ctx.fill();
+
+  // Header
+  const hy = sy+sh*0.08;
+  ctx.fillStyle = 'rgba(255,255,255,0.95)';
+  ctx.font = `700 ${sw*0.085}px -apple-system, sans-serif`;
+  ctx.fillText('Dashboard', sx+sw*0.06, hy+sh*0.04);
+  ctx.fillStyle = 'rgba(255,255,255,0.55)';
+  ctx.font = `${sw*0.045}px -apple-system, sans-serif`;
+  ctx.fillText('Welcome back, Sherifdeen', sx+sw*0.06, hy+sh*0.085);
+
+  // Balance card
+  const cX=sx+sw*0.06, cY=hy+sh*0.12, cW=sw*0.88, cH=sh*0.16;
+  ctx.fillStyle='rgba(255,255,255,0.12)';
+  roundRect(ctx,cX,cY,cW,cH,sr*0.6); ctx.fill();
+  ctx.strokeStyle='rgba(255,255,255,0.08)'; ctx.lineWidth=1;
+  roundRect(ctx,cX,cY,cW,cH,sr*0.6); ctx.stroke();
+  ctx.fillStyle='rgba(255,255,255,0.5)'; ctx.font=`${sw*0.04}px -apple-system, sans-serif`;
+  ctx.fillText('Total Balance',cX+cW*0.06,cY+cH*0.3);
+  ctx.fillStyle='#fff'; ctx.font=`700 ${sw*0.075}px -apple-system, sans-serif`;
+  ctx.fillText('$12,450.00',cX+cW*0.06,cY+cH*0.62);
+  ctx.fillStyle='rgba(52,211,153,0.2)';
+  roundRect(ctx,cX+cW*0.06,cY+cH*0.72,sw*0.2,cH*0.2,8); ctx.fill();
+  ctx.fillStyle='#34d399'; ctx.font=`600 ${sw*0.032}px -apple-system, sans-serif`;
+  ctx.fillText('+12.5% ↑',cX+cW*0.08,cY+cH*0.87);
+
+  // Stat cards
+  const stY=cY+cH+sh*0.025, stW=cW*0.47, stH=sh*0.12;
+  ctx.fillStyle='rgba(255,255,255,0.08)';
+  roundRect(ctx,cX,stY,stW,stH,sr*0.5); ctx.fill();
+  roundRect(ctx,cX+cW*0.53,stY,stW,stH,sr*0.5); ctx.fill();
+  ctx.fillStyle='#fff'; ctx.font=`700 ${sw*0.055}px -apple-system, sans-serif`;
+  ctx.fillText('+24.5%',cX+stW*0.1,stY+stH*0.45);
+  ctx.fillText('1,256',cX+cW*0.53+stW*0.1,stY+stH*0.45);
+  ctx.fillStyle='rgba(255,255,255,0.4)'; ctx.font=`${sw*0.035}px -apple-system, sans-serif`;
+  ctx.fillText('Growth',cX+stW*0.1,stY+stH*0.75);
+  ctx.fillText('Active Users',cX+cW*0.53+stW*0.1,stY+stH*0.75);
+
+  // Transactions
+  const txY=stY+stH+sh*0.03;
+  ctx.fillStyle='rgba(255,255,255,0.7)'; ctx.font=`600 ${sw*0.05}px -apple-system, sans-serif`;
+  ctx.fillText('Recent Transactions',cX,txY);
+  const items=[{n:'Payment received',a:'+$2,400',c:'#34d399'},{n:'Subscription fee',a:'-$49.99',c:'#f87171'},{n:'Transfer to savings',a:'-$500',c:'#f87171'},{n:'Client payment',a:'+$1,800',c:'#34d399'}];
+  items.forEach((it,i)=>{
+    const iy=txY+sh*0.04+i*sh*0.058;
+    ctx.fillStyle='rgba(255,255,255,0.06)';
+    roundRect(ctx,cX,iy,cW,sh*0.045,sr*0.3); ctx.fill();
+    ctx.fillStyle='rgba(255,255,255,0.6)'; ctx.font=`${sw*0.038}px -apple-system, sans-serif`;
+    ctx.fillText(it.n,cX+cW*0.04,iy+sh*0.032);
+    ctx.fillStyle=it.c; ctx.font=`600 ${sw*0.038}px -apple-system, sans-serif`;
+    ctx.textAlign='right'; ctx.fillText(it.a,cX+cW*0.96,iy+sh*0.032); ctx.textAlign='left';
+  });
+}
+
+function drawWebContent(ctx, cx, cy, cw, ch, accent) {
+  const pageBg = ctx.createLinearGradient(cx,cy,cx,cy+ch);
+  const isGreen = accent === 'green';
+  const isTeal = accent === 'teal';
+  pageBg.addColorStop(0, '#0f172a');
+  pageBg.addColorStop(1, '#020617');
+  ctx.fillStyle = pageBg;
+  ctx.fillRect(cx, cy, cw, ch);
+
+  const accentCol = isGreen ? '#10b981' : isTeal ? '#06b6d4' : '#6366f1';
+
+  // Nav
+  ctx.fillStyle='rgba(255,255,255,0.8)'; ctx.font=`600 ${ch*0.038}px -apple-system, sans-serif`;
+  ctx.fillText('ProjectName',cx+cw*0.04,cy+ch*0.06);
+  ctx.fillStyle='rgba(255,255,255,0.4)'; ctx.font=`${ch*0.026}px -apple-system, sans-serif`;
+  let nx=cx+cw*0.55;
+  ['Features','Pricing','About','Blog'].forEach(t=>{ctx.fillText(t,nx,cy+ch*0.06);nx+=cw*0.1;});
+
+  ctx.fillStyle=accentCol;
+  roundRect(ctx,cx+cw*0.88,cy+ch*0.03,cw*0.09,ch*0.045,4); ctx.fill();
+  ctx.fillStyle='#fff'; ctx.font=`600 ${ch*0.022}px -apple-system, sans-serif`;
+  ctx.textAlign='center'; ctx.fillText('Sign Up',cx+cw*0.925,cy+ch*0.06); ctx.textAlign='left';
+
+  // Hero
+  const heroY=cy+ch*0.14;
+  const badgeColorMap = {green:'rgba(16,185,129,0.15)',teal:'rgba(6,182,212,0.15)',indigo:'rgba(99,102,241,0.15)',blue:'rgba(99,102,241,0.15)'};
+  ctx.fillStyle = badgeColorMap[accent] || 'rgba(16,185,129,0.15)';
+  roundRect(ctx,cx+cw*0.04,heroY,cw*0.18,ch*0.04,10); ctx.fill();
+  ctx.fillStyle=accentCol; ctx.font=`500 ${ch*0.02}px -apple-system, sans-serif`;
+  ctx.fillText('✦ Now in Beta',cx+cw*0.06,heroY+ch*0.028);
+
+  ctx.fillStyle='#fff'; ctx.font=`700 ${ch*0.07}px -apple-system, sans-serif`;
+  ctx.fillText('Build Something',cx+cw*0.04,heroY+ch*0.13);
+  ctx.fillText('Amazing Today',cx+cw*0.04,heroY+ch*0.215);
+
+  ctx.fillStyle='rgba(255,255,255,0.45)'; ctx.font=`${ch*0.028}px -apple-system, sans-serif`;
+  ctx.fillText('The modern platform for building scalable',cx+cw*0.04,heroY+ch*0.28);
+  ctx.fillText('applications with confidence.',cx+cw*0.04,heroY+ch*0.32);
+
+  const by=heroY+ch*0.38;
+  ctx.fillStyle=accentCol;
+  roundRect(ctx,cx+cw*0.04,by,cw*0.15,ch*0.05,5); ctx.fill();
+  ctx.fillStyle='#fff'; ctx.font=`600 ${ch*0.024}px -apple-system, sans-serif`;
+  ctx.textAlign='center'; ctx.fillText('Get Started',cx+cw*0.115,by+ch*0.033); ctx.textAlign='left';
+
+  ctx.strokeStyle='rgba(255,255,255,0.2)'; ctx.lineWidth=1;
+  roundRect(ctx,cx+cw*0.21,by,cw*0.13,ch*0.05,5); ctx.stroke();
+  ctx.fillStyle='rgba(255,255,255,0.6)'; ctx.font=`500 ${ch*0.024}px -apple-system, sans-serif`;
+  ctx.textAlign='center'; ctx.fillText('Learn More',cx+cw*0.275,by+ch*0.033); ctx.textAlign='left';
+
+  // Dashboard card
+  const px=cx+cw*0.54,py=cy+ch*0.17,pw=cw*0.42,ph=ch*0.55;
+  ctx.fillStyle='rgba(255,255,255,0.04)';
+  roundRect(ctx,px,py,pw,ph,8); ctx.fill();
+  ctx.strokeStyle='rgba(255,255,255,0.05)'; roundRect(ctx,px,py,pw,ph,8); ctx.stroke();
+  ctx.fillStyle='rgba(255,255,255,0.7)'; ctx.font=`600 ${ch*0.028}px -apple-system, sans-serif`;
+  ctx.fillText('Analytics',px+pw*0.06,py+ph*0.09);
+
+  const barColorMap = {
+    green:  {top:'rgba(16,185,129,0.8)',  bot:'rgba(16,185,129,0.25)'},
+    teal:   {top:'rgba(6,182,212,0.8)',   bot:'rgba(6,182,212,0.25)'},
+    indigo: {top:'rgba(99,102,241,0.8)',  bot:'rgba(99,102,241,0.25)'},
+    blue:   {top:'rgba(99,102,241,0.8)',  bot:'rgba(99,102,241,0.25)'}
+  };
+  const bc = barColorMap[accent] || barColorMap.green;
+  const bh2=[0.3,0.5,0.35,0.7,0.55,0.85,0.6];
+  const cbY=py+ph*0.72,cbH=ph*0.42,bw=pw*0.08;
+  bh2.forEach((h,i)=>{
+    const bx=px+pw*0.08+i*pw*0.125;
+    const bH=cbH*h;
+    const g=ctx.createLinearGradient(bx,cbY-bH,bx,cbY);
+    g.addColorStop(0, bc.top);
+    g.addColorStop(1, bc.bot);
+    ctx.fillStyle=g;
+    roundRect(ctx,bx,cbY-bH,bw,bH,3); ctx.fill();
+  });
+
+  // Metrics
+  const my=cy+ch*0.82;
+  for(let i=0;i<3;i++){
+    const mx=cx+cw*0.04+i*cw*0.31;
+    ctx.fillStyle='rgba(255,255,255,0.03)';
+    roundRect(ctx,mx,my,cw*0.28,ch*0.12,5); ctx.fill();
+    ctx.fillStyle='rgba(255,255,255,0.3)'; ctx.font=`${ch*0.02}px -apple-system, sans-serif`;
+    ctx.fillText(['Active Users','Revenue','Growth'][i],mx+cw*0.02,my+ch*0.04);
+    ctx.fillStyle='#fff'; ctx.font=`700 ${ch*0.033}px -apple-system, sans-serif`;
+    ctx.fillText(['2,451','$45.2K','+127%'][i],mx+cw*0.02,my+ch*0.09);
+  }
+}
+
+function drawBrowserChrome(ctx, winX, winY, winW, barH, r, url) {
+  ctx.fillStyle='#252528';
+  roundRectTop(ctx,winX,winY,winW,barH,r); ctx.fill();
+  const dotY=winY+barH/2, dotR=barH*0.2;
+  [{x:winX+16,c:'#ff5f57'},{x:winX+32,c:'#ffbd2e'},{x:winX+48,c:'#28c840'}].forEach(d=>{
+    ctx.fillStyle=d.c; ctx.beginPath(); ctx.arc(d.x,dotY,dotR,0,Math.PI*2); ctx.fill();
+  });
+  const urlW=winW*0.3,urlH=barH*0.55;
+  const urlX=winX+(winW-urlW)/2, urlY=winY+(barH-urlH)/2;
+  ctx.fillStyle='rgba(255,255,255,0.05)';
+  roundRect(ctx,urlX,urlY,urlW,urlH,urlH/2); ctx.fill();
+  ctx.fillStyle='rgba(255,255,255,0.3)'; ctx.font=`${barH*0.3}px -apple-system, sans-serif`;
+  ctx.textAlign='center'; ctx.fillText(url||'myproject.com',urlX+urlW/2,urlY+urlH*0.72); ctx.textAlign='left';
+  ctx.fillStyle='rgba(255,255,255,0.05)'; ctx.fillRect(winX,winY+barH,winW,1);
+}
+
+// ===== MOBILE FULL =====
+function drawMobileFull(canvas, size) {
+  canvas.width=size*2; canvas.height=size*2;
+  canvas.style.width=size+'px'; canvas.style.height=size+'px';
+  const ctx=canvas.getContext('2d'); ctx.scale(2,2);
+  drawBackground(ctx,size,'indigo');
+
+  const glow=ctx.createRadialGradient(size/2,size*0.42,0,size/2,size*0.42,size*0.35);
+  glow.addColorStop(0,'rgba(99,102,241,0.06)'); glow.addColorStop(1,'transparent');
+  ctx.fillStyle=glow; ctx.fillRect(0,0,size,size);
+
+  const pw=size*0.34, ph=pw*2.1, px=(size-pw)/2, py=(size-ph)/2+size*0.01, r=pw*0.08;
+  ctx.shadowColor='rgba(0,0,0,0.6)'; ctx.shadowBlur=50; ctx.shadowOffsetY=15;
+  ctx.fillStyle='#1c1c1e'; roundRect(ctx,px,py,pw,ph,r); ctx.fill();
+  ctx.shadowColor='transparent';
+  ctx.strokeStyle='rgba(255,255,255,0.08)'; ctx.lineWidth=1.5;
+  roundRect(ctx,px,py,pw,ph,r); ctx.stroke();
+  const diW=pw*0.26,diH=pw*0.06;
+  ctx.fillStyle='#000'; roundRect(ctx,px+(pw-diW)/2,py+pw*0.04,diW,diH,diH/2); ctx.fill();
+
+  const sp=pw*0.04;
+  drawPhoneScreen(ctx,px+sp,py+sp*2,pw-sp*2,ph-sp*3.5,r*0.7,'indigo');
+  ctx.fillStyle='rgba(255,255,255,0.25)';
+  roundRect(ctx,px+(pw-pw*0.3)/2,py+ph-sp*1.2,pw*0.3,3,2); ctx.fill();
+}
+
+// ===== MOBILE CROPPED =====
+function drawMobileCropped(canvas, size) {
+  canvas.width=size*2; canvas.height=size*2;
+  canvas.style.width=size+'px'; canvas.style.height=size+'px';
+  const ctx=canvas.getContext('2d'); ctx.scale(2,2);
+  drawBackground(ctx,size,'purple');
+
+  const glow=ctx.createRadialGradient(size*0.48,size*0.35,0,size*0.48,size*0.35,size*0.45);
+  glow.addColorStop(0,'rgba(139,92,246,0.08)'); glow.addColorStop(1,'transparent');
+  ctx.fillStyle=glow; ctx.fillRect(0,0,size,size);
+
+  const pw=size*0.55, ph=pw*2.1, px=(size-pw)/2, py=size*0.08, r=pw*0.07;
+  ctx.shadowColor='rgba(0,0,0,0.7)'; ctx.shadowBlur=60; ctx.shadowOffsetY=20;
+  ctx.fillStyle='#1c1c1e'; roundRect(ctx,px,py,pw,ph,r); ctx.fill();
+  ctx.shadowColor='transparent';
+  ctx.strokeStyle='rgba(255,255,255,0.08)'; ctx.lineWidth=2;
+  roundRect(ctx,px,py,pw,ph,r); ctx.stroke();
+  const diW=pw*0.24,diH=pw*0.055;
+  ctx.fillStyle='#000'; roundRect(ctx,px+(pw-diW)/2,py+pw*0.035,diW,diH,diH/2); ctx.fill();
+
+  const sp=pw*0.035;
+  drawPhoneScreen(ctx,px+sp,py+sp*2,pw-sp*2,ph-sp*3.5,r*0.7,'purple');
+
+  const fadeH=size*0.15;
+  const fade=ctx.createLinearGradient(0,size-fadeH,0,size);
+  fade.addColorStop(0,'rgba(10,10,15,0)'); fade.addColorStop(0.5,'rgba(10,10,15,0.7)'); fade.addColorStop(1,'rgba(10,10,15,1)');
+  ctx.fillStyle=fade; ctx.fillRect(0,size-fadeH,size,fadeH);
+}
+
+// ===== WEB FLAT =====
+function drawWebFlat(canvas, size) {
+  canvas.width=size*2; canvas.height=size*2;
+  canvas.style.width=size+'px'; canvas.style.height=size+'px';
+  const ctx=canvas.getContext('2d'); ctx.scale(2,2);
+  drawBackground(ctx,size,'green');
+
+  const glow=ctx.createRadialGradient(size/2,size*0.45,0,size/2,size*0.45,size*0.4);
+  glow.addColorStop(0,'rgba(16,185,129,0.06)'); glow.addColorStop(1,'transparent');
+  ctx.fillStyle=glow; ctx.fillRect(0,0,size,size);
+
+  const ww=size*0.84, wh=ww*0.65, wx=(size-ww)/2, wy=(size-wh)/2, r=10;
+  ctx.shadowColor='rgba(0,0,0,0.5)'; ctx.shadowBlur=50; ctx.shadowOffsetY=12;
+  ctx.fillStyle='#1c1c1e'; roundRect(ctx,wx,wy,ww,wh,r); ctx.fill();
+  ctx.shadowColor='transparent';
+  ctx.strokeStyle='rgba(255,255,255,0.06)'; ctx.lineWidth=1;
+  roundRect(ctx,wx,wy,ww,wh,r); ctx.stroke();
+
+  const bh=wh*0.06;
+  drawBrowserChrome(ctx,wx,wy,ww,bh,r,'myproject.com');
+  drawWebContent(ctx,wx,wy+bh+1,ww,wh-bh-1,'green');
+}
+
+// ===== WEB 3D PERSPECTIVE =====
+function drawWebAngle(canvas, size) {
+  canvas.width=size*2; canvas.height=size*2;
+  canvas.style.width=size+'px'; canvas.style.height=size+'px';
+  const ctx=canvas.getContext('2d'); ctx.scale(2,2);
+  drawBackground(ctx,size,'teal');
+
+  const glow=ctx.createRadialGradient(size*0.55,size*0.4,0,size*0.55,size*0.4,size*0.45);
+  glow.addColorStop(0,'rgba(6,182,212,0.08)'); glow.addColorStop(1,'transparent');
+  ctx.fillStyle=glow; ctx.fillRect(0,0,size,size);
+
+  // Simulate 3D perspective with a skew transform
+  ctx.save();
+  // Move origin to center, apply perspective-like transform
+  const cx=size/2, cy=size/2;
+  ctx.translate(cx, cy);
+  // Skew to simulate rotateY(-12deg) rotateX(4deg)
+  // This creates a parallelogram effect
+  ctx.transform(1, 0.04, -0.12, 1, 0, 0);
+  ctx.translate(-cx, -cy);
+
+  const ww=size*0.78, wh=ww*0.62;
+  const wx=(size-ww)/2 + size*0.02, wy=(size-wh)/2 - size*0.01;
+  const r=10;
+
+  // Deeper shadow for 3D effect
+  ctx.shadowColor='rgba(0,0,0,0.6)'; ctx.shadowBlur=60; ctx.shadowOffsetX=20; ctx.shadowOffsetY=15;
+  ctx.fillStyle='#1c1c1e'; roundRect(ctx,wx,wy,ww,wh,r); ctx.fill();
+  ctx.shadowColor='transparent';
+
+  // Subtle reflection/highlight on left edge
+  const edgeGrad=ctx.createLinearGradient(wx,wy,wx+8,wy);
+  edgeGrad.addColorStop(0,'rgba(255,255,255,0.06)'); edgeGrad.addColorStop(1,'rgba(255,255,255,0)');
+  ctx.fillStyle=edgeGrad;
+  ctx.fillRect(wx,wy+r,8,wh-r*2);
+
+  ctx.strokeStyle='rgba(255,255,255,0.08)'; ctx.lineWidth=1;
+  roundRect(ctx,wx,wy,ww,wh,r); ctx.stroke();
+
+  const bh=wh*0.065;
+  drawBrowserChrome(ctx,wx,wy,ww,bh,r,'dashboard.app');
+  drawWebContent(ctx,wx,wy+bh+1,ww,wh-bh-1,'teal');
+
+  ctx.restore();
+
+  // Floating accent elements outside the browser for depth
+  // Small floating card behind (drawn after restore so it's in normal space)
+  ctx.save();
+  ctx.globalAlpha=0.15;
+  ctx.fillStyle='#06b6d4';
+  roundRect(ctx, size*0.05, size*0.7, size*0.12, size*0.08, 6); ctx.fill();
+  roundRect(ctx, size*0.85, size*0.15, size*0.08, size*0.06, 4); ctx.fill();
+  ctx.globalAlpha=1;
+  ctx.restore();
+}
+
+// ===== WEB CROPPED =====
+function drawWebCropped(canvas, size) {
+  canvas.width=size*2; canvas.height=size*2;
+  canvas.style.width=size+'px'; canvas.style.height=size+'px';
+  const ctx=canvas.getContext('2d'); ctx.scale(2,2);
+  drawBackground(ctx,size,'blue');
+
+  const glow=ctx.createRadialGradient(size/2,size*0.3,0,size/2,size*0.3,size*0.45);
+  glow.addColorStop(0,'rgba(99,102,241,0.07)'); glow.addColorStop(1,'transparent');
+  ctx.fillStyle=glow; ctx.fillRect(0,0,size,size);
+
+  // Browser — much bigger, extends past bottom
+  const ww=size*0.92, wh=ww*0.75;
+  const wx=(size-ww)/2, wy=size*0.06;
+  const r=10;
+
+  ctx.shadowColor='rgba(0,0,0,0.5)'; ctx.shadowBlur=50; ctx.shadowOffsetY=10;
+  ctx.fillStyle='#1c1c1e'; roundRect(ctx,wx,wy,ww,wh,r); ctx.fill();
+  ctx.shadowColor='transparent';
+  ctx.strokeStyle='rgba(255,255,255,0.06)'; ctx.lineWidth=1;
+  roundRect(ctx,wx,wy,ww,wh,r); ctx.stroke();
+
+  const bh=wh*0.055;
+  drawBrowserChrome(ctx,wx,wy,ww,bh,r,'app.project.io');
+  drawWebContent(ctx,wx,wy+bh+1,ww,wh-bh-1,'indigo');
+
+  // Bottom fade
+  const fadeH=size*0.18;
+  const fade=ctx.createLinearGradient(0,size-fadeH,0,size);
+  fade.addColorStop(0,'rgba(10,10,15,0)'); fade.addColorStop(0.5,'rgba(10,10,15,0.7)'); fade.addColorStop(1,'rgba(10,10,15,1)');
+  ctx.fillStyle=fade; ctx.fillRect(0,size-fadeH,size,fadeH);
+}
+
+// ===== INIT =====
+function setup(id, fn, size) {
+  const c=document.createElement('canvas');
+  document.getElementById(id).appendChild(c);
+  fn(c,size);
+}
+
+// Main covers
+setup('mobile-full', drawMobileFull, 360);
+setup('mobile-cropped', drawMobileCropped, 360);
+setup('web-flat', drawWebFlat, 360);
+setup('web-angle', drawWebAngle, 360);
+setup('web-cropped', drawWebCropped, 360);
+
+// Grid previews
+setup('sm1', drawMobileCropped, 200);
+setup('sm2', drawWebAngle, 200);
+setup('sm3', drawWebCropped, 200);
+setup('sm4', drawMobileCropped, 200);
+setup('sm5', drawWebAngle, 200);
+setup('sm6', drawWebFlat, 200);
+</script>
+</body>
+</html>
