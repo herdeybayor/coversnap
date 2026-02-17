@@ -1,6 +1,17 @@
 // ===== CANVAS RENDERING ENGINE =====
 // Extracted and parameterized from project-cover-template-v2.html
 
+// ===== DIMENSION PRESETS =====
+const DIMENSIONS = {
+  '1:1':  { label: 'Square',          width: 1080, height: 1080 },
+  '16:9': { label: 'Landscape',       width: 1920, height: 1080 },
+  '4:3':  { label: 'Standard',        width: 1440, height: 1080 },
+  '3:2':  { label: 'Classic',         width: 1620, height: 1080 },
+  '2:1':  { label: 'Ultra-wide',      width: 2160, height: 1080 },
+  '9:16': { label: 'Portrait',        width: 1080, height: 1920 },
+  '4:5':  { label: 'Social Portrait', width: 1080, height: 1350 },
+};
+
 // ===== HELPERS =====
 function roundRect(ctx, x, y, w, h, r) {
   ctx.beginPath();
@@ -64,17 +75,18 @@ const ACCENT_GRADIENTS = {
 };
 
 // ===== BACKGROUND =====
-function drawBackground(ctx, size, bgKey) {
+function drawBackground(ctx, w, h, bgKey) {
   const c = BACKGROUND_PALETTES[bgKey] || BACKGROUND_PALETTES.indigo;
-  const bg = ctx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size * 0.7);
+  const r = Math.max(w, h) * 0.7;
+  const bg = ctx.createRadialGradient(w / 2, h / 2, 0, w / 2, h / 2, r);
   bg.addColorStop(0, c[0]); bg.addColorStop(0.5, c[1]); bg.addColorStop(1, c[2]);
   ctx.fillStyle = bg;
-  ctx.fillRect(0, 0, size, size);
+  ctx.fillRect(0, 0, w, h);
 
   // Dot grid
   ctx.fillStyle = 'rgba(255,255,255,0.03)';
-  for (let x = 16; x < size; x += 22) {
-    for (let y = 16; y < size; y += 22) {
+  for (let x = 16; x < w; x += 22) {
+    for (let y = 16; y < h; y += 22) {
       ctx.beginPath(); ctx.arc(x, y, 0.6, 0, Math.PI * 2); ctx.fill();
     }
   }
@@ -305,16 +317,17 @@ function drawBrowserChrome(ctx, winX, winY, winW, barH, r, url) {
 }
 
 // ===== TEMPLATE: MOBILE FULL =====
-function drawMobileFull(ctx, size, config) {
-  drawBackground(ctx, size, config.background || 'indigo');
+function drawMobileFull(ctx, w, h, config) {
+  drawBackground(ctx, w, h, config.background || 'indigo');
+  const unit = Math.min(w, h);
 
   const accentKey = config.accent || 'indigo';
   const accentCol = ACCENT_COLORS[accentKey] || ACCENT_COLORS.indigo;
-  const glow = ctx.createRadialGradient(size / 2, size * 0.42, 0, size / 2, size * 0.42, size * 0.35);
+  const glow = ctx.createRadialGradient(w / 2, h * 0.42, 0, w / 2, h * 0.42, unit * 0.35);
   glow.addColorStop(0, `${accentCol}0f`); glow.addColorStop(1, 'transparent');
-  ctx.fillStyle = glow; ctx.fillRect(0, 0, size, size);
+  ctx.fillStyle = glow; ctx.fillRect(0, 0, w, h);
 
-  const pw = size * 0.34, ph = pw * 2.1, px = (size - pw) / 2, py = (size - ph) / 2 + size * 0.01, r = pw * 0.08;
+  const pw = unit * 0.34, ph = pw * 2.1, px = (w - pw) / 2, py = (h - ph) / 2 + unit * 0.01, r = pw * 0.08;
   ctx.shadowColor = 'rgba(0,0,0,0.6)'; ctx.shadowBlur = 50; ctx.shadowOffsetY = 15;
   ctx.fillStyle = '#1c1c1e'; roundRect(ctx, px, py, pw, ph, r); ctx.fill();
   ctx.shadowColor = 'transparent';
@@ -330,16 +343,17 @@ function drawMobileFull(ctx, size, config) {
 }
 
 // ===== TEMPLATE: MOBILE CROPPED =====
-function drawMobileCropped(ctx, size, config) {
-  drawBackground(ctx, size, config.background || 'purple');
+function drawMobileCropped(ctx, w, h, config) {
+  drawBackground(ctx, w, h, config.background || 'purple');
+  const unit = Math.min(w, h);
 
   const accentKey = config.accent || 'purple';
   const accentCol = ACCENT_COLORS[accentKey] || ACCENT_COLORS.purple;
-  const glow = ctx.createRadialGradient(size * 0.48, size * 0.35, 0, size * 0.48, size * 0.35, size * 0.45);
+  const glow = ctx.createRadialGradient(w * 0.48, h * 0.35, 0, w * 0.48, h * 0.35, unit * 0.45);
   glow.addColorStop(0, `${accentCol}14`); glow.addColorStop(1, 'transparent');
-  ctx.fillStyle = glow; ctx.fillRect(0, 0, size, size);
+  ctx.fillStyle = glow; ctx.fillRect(0, 0, w, h);
 
-  const pw = size * 0.55, ph = pw * 2.1, px = (size - pw) / 2, py = size * 0.08, r = pw * 0.07;
+  const pw = unit * 0.55, ph = pw * 2.1, px = (w - pw) / 2, py = h * 0.08, r = pw * 0.07;
   ctx.shadowColor = 'rgba(0,0,0,0.7)'; ctx.shadowBlur = 60; ctx.shadowOffsetY = 20;
   ctx.fillStyle = '#1c1c1e'; roundRect(ctx, px, py, pw, ph, r); ctx.fill();
   ctx.shadowColor = 'transparent';
@@ -351,24 +365,25 @@ function drawMobileCropped(ctx, size, config) {
   const sp = pw * 0.035;
   drawPhoneScreen(ctx, px + sp, py + sp * 2, pw - sp * 2, ph - sp * 3.5, r * 0.7, accentKey, config);
 
-  const fadeH = size * 0.15;
-  const fade = ctx.createLinearGradient(0, size - fadeH, 0, size);
+  const fadeH = h * 0.15;
+  const fade = ctx.createLinearGradient(0, h - fadeH, 0, h);
   const bgColors = BACKGROUND_PALETTES[config.background || 'purple'] || BACKGROUND_PALETTES.purple;
   fade.addColorStop(0, `${bgColors[2]}00`); fade.addColorStop(0.5, `${bgColors[2]}b3`); fade.addColorStop(1, bgColors[2]);
-  ctx.fillStyle = fade; ctx.fillRect(0, size - fadeH, size, fadeH);
+  ctx.fillStyle = fade; ctx.fillRect(0, h - fadeH, w, fadeH);
 }
 
 // ===== TEMPLATE: WEB FLAT =====
-function drawWebFlat(ctx, size, config) {
-  drawBackground(ctx, size, config.background || 'green');
+function drawWebFlat(ctx, w, h, config) {
+  drawBackground(ctx, w, h, config.background || 'green');
+  const unit = Math.min(w, h);
 
   const accentKey = config.accent || 'green';
   const accentCol = ACCENT_COLORS[accentKey] || ACCENT_COLORS.green;
-  const glow = ctx.createRadialGradient(size / 2, size * 0.45, 0, size / 2, size * 0.45, size * 0.4);
+  const glow = ctx.createRadialGradient(w / 2, h * 0.45, 0, w / 2, h * 0.45, unit * 0.4);
   glow.addColorStop(0, `${accentCol}0f`); glow.addColorStop(1, 'transparent');
-  ctx.fillStyle = glow; ctx.fillRect(0, 0, size, size);
+  ctx.fillStyle = glow; ctx.fillRect(0, 0, w, h);
 
-  const ww = size * 0.84, wh = ww * 0.65, wx = (size - ww) / 2, wy = (size - wh) / 2, r = 10;
+  const ww = unit * 0.84, wh = ww * 0.65, wx = (w - ww) / 2, wy = (h - wh) / 2, r = 10;
   ctx.shadowColor = 'rgba(0,0,0,0.5)'; ctx.shadowBlur = 50; ctx.shadowOffsetY = 12;
   ctx.fillStyle = '#1c1c1e'; roundRect(ctx, wx, wy, ww, wh, r); ctx.fill();
   ctx.shadowColor = 'transparent';
@@ -381,23 +396,24 @@ function drawWebFlat(ctx, size, config) {
 }
 
 // ===== TEMPLATE: WEB 3D PERSPECTIVE =====
-function drawWebAngle(ctx, size, config) {
-  drawBackground(ctx, size, config.background || 'teal');
+function drawWebAngle(ctx, w, h, config) {
+  drawBackground(ctx, w, h, config.background || 'teal');
+  const unit = Math.min(w, h);
 
   const accentKey = config.accent || 'teal';
   const accentCol = ACCENT_COLORS[accentKey] || ACCENT_COLORS.teal;
-  const glow = ctx.createRadialGradient(size * 0.55, size * 0.4, 0, size * 0.55, size * 0.4, size * 0.45);
+  const glow = ctx.createRadialGradient(w * 0.55, h * 0.4, 0, w * 0.55, h * 0.4, unit * 0.45);
   glow.addColorStop(0, `${accentCol}14`); glow.addColorStop(1, 'transparent');
-  ctx.fillStyle = glow; ctx.fillRect(0, 0, size, size);
+  ctx.fillStyle = glow; ctx.fillRect(0, 0, w, h);
 
   ctx.save();
-  const cx = size / 2, cy = size / 2;
+  const cx = w / 2, cy = h / 2;
   ctx.translate(cx, cy);
   ctx.transform(1, 0.04, -0.12, 1, 0, 0);
   ctx.translate(-cx, -cy);
 
-  const ww = size * 0.78, wh = ww * 0.62;
-  const wx = (size - ww) / 2 + size * 0.02, wy = (size - wh) / 2 - size * 0.01;
+  const ww = unit * 0.78, wh = ww * 0.62;
+  const wx = (w - ww) / 2 + unit * 0.02, wy = (h - wh) / 2 - unit * 0.01;
   const r = 10;
 
   ctx.shadowColor = 'rgba(0,0,0,0.6)'; ctx.shadowBlur = 60; ctx.shadowOffsetX = 20; ctx.shadowOffsetY = 15;
@@ -422,24 +438,25 @@ function drawWebAngle(ctx, size, config) {
   ctx.save();
   ctx.globalAlpha = 0.15;
   ctx.fillStyle = accentCol;
-  roundRect(ctx, size * 0.05, size * 0.7, size * 0.12, size * 0.08, 6); ctx.fill();
-  roundRect(ctx, size * 0.85, size * 0.15, size * 0.08, size * 0.06, 4); ctx.fill();
+  roundRect(ctx, w * 0.05, h * 0.7, unit * 0.12, unit * 0.08, 6); ctx.fill();
+  roundRect(ctx, w * 0.85, h * 0.15, unit * 0.08, unit * 0.06, 4); ctx.fill();
   ctx.globalAlpha = 1;
   ctx.restore();
 }
 
 // ===== TEMPLATE: WEB CROPPED =====
-function drawWebCropped(ctx, size, config) {
-  drawBackground(ctx, size, config.background || 'blue');
+function drawWebCropped(ctx, w, h, config) {
+  drawBackground(ctx, w, h, config.background || 'blue');
+  const unit = Math.min(w, h);
 
   const accentKey = config.accent || 'indigo';
   const accentCol = ACCENT_COLORS[accentKey] || ACCENT_COLORS.indigo;
-  const glow = ctx.createRadialGradient(size / 2, size * 0.3, 0, size / 2, size * 0.3, size * 0.45);
+  const glow = ctx.createRadialGradient(w / 2, h * 0.3, 0, w / 2, h * 0.3, unit * 0.45);
   glow.addColorStop(0, `${accentCol}12`); glow.addColorStop(1, 'transparent');
-  ctx.fillStyle = glow; ctx.fillRect(0, 0, size, size);
+  ctx.fillStyle = glow; ctx.fillRect(0, 0, w, h);
 
-  const ww = size * 0.92, wh = ww * 0.75;
-  const wx = (size - ww) / 2, wy = size * 0.06;
+  const ww = unit * 0.92, wh = ww * 0.75;
+  const wx = (w - ww) / 2, wy = h * 0.06;
   const r = 10;
 
   ctx.shadowColor = 'rgba(0,0,0,0.5)'; ctx.shadowBlur = 50; ctx.shadowOffsetY = 10;
@@ -453,11 +470,11 @@ function drawWebCropped(ctx, size, config) {
   drawWebContent(ctx, wx, wy + bh + 1, ww, wh - bh - 1, accentKey, config);
 
   // Bottom fade
-  const fadeH = size * 0.18;
-  const fade = ctx.createLinearGradient(0, size - fadeH, 0, size);
+  const fadeH = h * 0.18;
+  const fade = ctx.createLinearGradient(0, h - fadeH, 0, h);
   const bgColors = BACKGROUND_PALETTES[config.background || 'blue'] || BACKGROUND_PALETTES.blue;
   fade.addColorStop(0, `${bgColors[2]}00`); fade.addColorStop(0.5, `${bgColors[2]}b3`); fade.addColorStop(1, bgColors[2]);
-  ctx.fillStyle = fade; ctx.fillRect(0, size - fadeH, size, fadeH);
+  ctx.fillStyle = fade; ctx.fillRect(0, h - fadeH, w, fadeH);
 }
 
 // ===== MAIN RENDER FUNCTION =====
@@ -472,48 +489,57 @@ const TEMPLATES = {
 /**
  * Render a cover image to a canvas.
  * @param {HTMLCanvasElement} canvas
- * @param {object} config - { template, title, subtitle, url, accent, background, screenshot, size }
+ * @param {object} config - { template, dimension, title, subtitle, url, accent, background, screenshot, size }
  */
 export function renderCover(canvas, config) {
-  const size = config.size || 540;
+  const dim = DIMENSIONS[config.dimension] || DIMENSIONS['1:1'];
+  const baseSize = config.size || 540;
+  // Scale the dimension proportionally so the longer edge = baseSize
+  const scaleFactor = baseSize / Math.max(dim.width, dim.height);
+  const width = Math.round(dim.width * scaleFactor);
+  const height = Math.round(dim.height * scaleFactor);
+
   const scale = 2; // retina
-  canvas.width = size * scale;
-  canvas.height = size * scale;
-  canvas.style.width = size + 'px';
-  canvas.style.height = size + 'px';
+  canvas.width = width * scale;
+  canvas.height = height * scale;
+  canvas.style.width = width + 'px';
+  canvas.style.height = height + 'px';
   const ctx = canvas.getContext('2d');
   ctx.scale(scale, scale);
 
   const templateKey = config.template || 'mobile-cropped';
   const tmpl = TEMPLATES[templateKey];
   if (tmpl) {
-    tmpl.fn(ctx, size, config);
+    tmpl.fn(ctx, width, height, config);
   }
 }
 
 /**
  * Export a cover as a PNG blob.
  * @param {object} config
- * @param {number} exportSize - export resolution (default 1080)
  * @returns {Promise<Blob>}
  */
-export function exportCoverAsPNG(config, exportSize = 1080) {
+export function exportCoverAsPNG(config) {
   return new Promise((resolve) => {
+    const dim = DIMENSIONS[config.dimension] || DIMENSIONS['1:1'];
+    const exportW = dim.width;
+    const exportH = dim.height;
+
     const canvas = document.createElement('canvas');
     const scale = 2;
-    canvas.width = exportSize * scale;
-    canvas.height = exportSize * scale;
+    canvas.width = exportW * scale;
+    canvas.height = exportH * scale;
     const ctx = canvas.getContext('2d');
     ctx.scale(scale, scale);
 
     const templateKey = config.template || 'mobile-cropped';
     const tmpl = TEMPLATES[templateKey];
     if (tmpl) {
-      tmpl.fn(ctx, exportSize, config);
+      tmpl.fn(ctx, exportW, exportH, config);
     }
 
     canvas.toBlob(resolve, 'image/png');
   });
 }
 
-export { TEMPLATES, ACCENT_COLORS, BACKGROUND_PALETTES };
+export { TEMPLATES, ACCENT_COLORS, BACKGROUND_PALETTES, DIMENSIONS };
